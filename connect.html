@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Connect Deriv - Traderhub</title>
+<title>Connect Deriv</title>
 
 <style>
 body{
-background:#111827;
-color:white;
-font-family:Arial;
-text-align:center;
-padding:30px;
+    background:#111827;
+    color:white;
+    font-family:Arial;
+    margin:0;
 }
 
-.box{
-background:#1f2937;
-padding:30px;
-border-radius:20px;
+.card{
+    background:#1f2937;
+    margin:40px 20px;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
 }
 
 input{
-width:90%;
-padding:15px;
-margin:20px;
-border-radius:10px;
-border:none;
+    width:90%;
+    padding:15px;
+    border-radius:10px;
+    border:0;
+    margin:20px 0;
 }
 
 button{
-background:#ff4057;
-color:white;
-padding:15px 30px;
-border:0;
-border-radius:10px;
-font-size:18px;
+    background:#ff4057;
+    color:white;
+    border:0;
+    padding:15px 30px;
+    border-radius:10px;
+    font-size:18px;
+}
+
+#status{
+    margin-top:20px;
 }
 </style>
 
@@ -40,51 +45,46 @@ font-size:18px;
 
 <body>
 
-<div class="box">
+<div class="card">
 
-<h1>Connect Deriv</h1>
+<h2>Connect Deriv</h2>
 
 <p>Enter your Deriv API token</p>
 
-<input type="password" placeholder="API Token">
+<input id="token" type="password" placeholder="API Token">
 
 <br>
 
-<button onclick="connect()">
+<button onclick="connectDeriv()">
 Connect Account
 </button>
 
-<p id="status"></p>
+<p id="status">Waiting...</p>
 
 </div>
 
 
 <script>
 
-function connect(){
+function connectDeriv(){
 
-document.getElementById("status").innerHTML =
-"Connecting to Deriv...";
-
-}
-
-<script>
-
-function connect(){
-
-let token = document.querySelector("input").value;
+let token = document.getElementById("token").value;
 
 if(token==""){
-document.getElementById("status").innerHTML =
-"Please enter API token";
+document.getElementById("status").innerHTML="Enter API token";
 return;
 }
+
+
+document.getElementById("status").innerHTML="Connecting to Deriv...";
+
 
 let socket = new WebSocket(
 "wss://ws.derivws.com/websockets/v3?app_id=1089"
 );
 
-socket.onopen = function(){
+
+socket.onopen=function(){
 
 socket.send(JSON.stringify({
 authorize: token
@@ -92,23 +92,46 @@ authorize: token
 
 };
 
-socket.onmessage = function(msg){
+
+socket.onmessage=function(msg){
 
 let data = JSON.parse(msg.data);
 
+
 if(data.authorize){
 
-document.getElementById("status").innerHTML =
+document.getElementById("status").innerHTML=
 "Connected successfully";
 
-}else if(data.error){
+localStorage.setItem(
+"account",
+JSON.stringify(data.authorize)
+);
 
-document.getElementById("status").innerHTML =
+setTimeout(function(){
+window.location.href="dashboard.html";
+},1000);
+
+
+}
+
+else if(data.error){
+
+document.getElementById("status").innerHTML=
 data.error.message;
 
 }
 
 };
+
+
+socket.onerror=function(){
+
+document.getElementById("status").innerHTML=
+"Connection error";
+
+};
+
 
 }
 
