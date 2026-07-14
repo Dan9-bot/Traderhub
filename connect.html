@@ -85,12 +85,14 @@ return;
 status.innerHTML="Connecting to Deriv...";
 
 
+
 let socket = new WebSocket(
 "wss://ws.derivws.com/websockets/v3?app_id=33Pp6Q49Gvdxxyne3T2Ks"
-);socket.onerror=function(){
+);
+
+socket.onerror=function(){
 status.innerHTML="Connection error";
 };
-
 
 socket.onopen=function(){
 
