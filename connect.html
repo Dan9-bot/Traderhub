@@ -5,39 +5,40 @@
 
 <style>
 body{
-    background:#111827;
-    color:white;
-    font-family:Arial;
-    margin:0;
+background:#111827;
+color:white;
+font-family:Arial;
+margin:0;
 }
 
 .card{
-    background:#1f2937;
-    margin:40px 20px;
-    padding:30px;
-    border-radius:20px;
-    text-align:center;
+background:#1f2937;
+margin:40px 20px;
+padding:30px;
+border-radius:20px;
+text-align:center;
 }
 
 input{
-    width:90%;
-    padding:15px;
-    border-radius:10px;
-    border:0;
-    margin:20px 0;
+width:90%;
+padding:15px;
+border-radius:10px;
+border:0;
+font-size:16px;
 }
 
 button{
-    background:#ff4057;
-    color:white;
-    border:0;
-    padding:15px 30px;
-    border-radius:10px;
-    font-size:18px;
+margin-top:20px;
+background:#ff4057;
+color:white;
+border:0;
+padding:15px 30px;
+border-radius:10px;
+font-size:18px;
 }
 
 #status{
-    margin-top:20px;
+margin-top:20px;
 }
 </style>
 
@@ -68,19 +69,22 @@ Connect Account
 
 function connectDeriv(){
 
-let token = document.getElementById("token").value;
+let token = document.getElementById("token").value.trim();
 
-if(token==""){
-document.getElementById("status").innerHTML="Enter API token";
+let status = document.getElementById("status");
+
+
+if(token === ""){
+status.innerHTML="Enter API token";
 return;
 }
 
 
-document.getElementById("status").innerHTML="Connecting to Deriv...";
+status.innerHTML="Connecting to Deriv...";
 
 
 let socket = new WebSocket(
-"wss://ws.derivws.com/websockets/v3?app_id=1089"
+"wss://ws.derivws.com/websockets/v3?app_id=YOUR_APP_ID"
 );
 
 
@@ -93,32 +97,32 @@ authorize: token
 };
 
 
-socket.onmessage=function(msg){
+socket.onmessage=function(event){
 
-let data = JSON.parse(msg.data);
+let data = JSON.parse(event.data);
 
 
 if(data.authorize){
 
-document.getElementById("status").innerHTML=
-"Connected successfully";
+status.innerHTML="Connected successfully";
+
 
 localStorage.setItem(
-"account",
+"deriv_account",
 JSON.stringify(data.authorize)
 );
 
-setTimeout(function(){
+
+setTimeout(()=>{
 window.location.href="dashboard.html";
-},1000);
+},1500);
 
 
 }
 
 else if(data.error){
 
-document.getElementById("status").innerHTML=
-data.error.message;
+status.innerHTML=data.error.message;
 
 }
 
@@ -127,8 +131,7 @@ data.error.message;
 
 socket.onerror=function(){
 
-document.getElementById("status").innerHTML=
-"Connection error";
+status.innerHTML="Connection error";
 
 };
 
