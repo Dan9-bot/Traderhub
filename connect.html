@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Connect Deriv - Traderhub</title>
+
+<style>
+body{
+background:#111827;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:30px;
+}
+
+.box{
+background:#1f2937;
+padding:30px;
+border-radius:20px;
+}
+
+input{
+width:90%;
+padding:15px;
+margin:20px;
+border-radius:10px;
+border:none;
+}
+
+button{
+background:#ff4057;
+color:white;
+padding:15px 30px;
+border:0;
+border-radius:10px;
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Connect Deriv</h1>
+
+<p>Enter your Deriv API token</p>
+
+<input type="password" placeholder="API Token">
+
+<br>
+
+<button onclick="connect()">
+Connect Account
+</button>
+
+<p id="status"></p>
+
+</div>
+
+
+<script>
+
+function connect(){
+
+document.getElementById("status").innerHTML =
+"Connecting to Deriv...";
+
+}
+
+</script>
+
+</body>
+</html>
