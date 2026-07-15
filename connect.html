@@ -1,133 +1,26 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>Traderhub Connect</title>
-
-<style>
-body{
-    margin:0;
-    background:#111827;
-    color:white;
-    font-family:Arial;
-}
-
-.card{
-    margin:60px auto;
-    width:85%;
-    max-width:500px;
-    background:#1f2937;
-    padding:30px;
-    border-radius:15px;
-    text-align:center;
-}
-
-input{
-    width:90%;
-    padding:15px;
-    border-radius:10px;
-    border:0;
-    margin:20px 0;
-}
-
-button{
-    background:#ff4057;
-    color:white;
-    border:0;
-    padding:15px 30px;
-    border-radius:10px;
-    font-size:16px;
-}
-
-#status{
-    margin-top:20px;
-}
-</style>
-
-</head>
-
-<body>
-
-<div class="card">
-
-<h2>Connect Deriv</h2>
-
-<p>Enter your Deriv API token</p>
-
-<input id="token" type="password" placeholder="API Token">
-
-<br>
-
-<button onclick="connectDeriv()">
-Connect Account
-</button>
-
-<p id="status">Waiting...</p>
-
-</div>
-
-
-<script>
-
-function connectDeriv(){
-
-let token = document.getElementById("token").value.trim();
-
-let status = document.getElementById("status");
-
-
-if(token===""){
-status.innerHTML="Enter API token";
-return;
-}
-
-
-status.innerHTML="Connecting to Deriv...";
-
-
-
 let socket = new WebSocket(
-"wss://ws.derivws.com/websockets/v3?app_id=33Pp6Q49Gvdxxyne3T2Ks"
+    "wss://ws.derivws.com/websockets/v3?app_id=33Pp6Q49Gvdxxyne3T2Ks"
 );
 
-socket.onerror=function(){
-status.innerHTML="Connection error";
+socket.onerror = function () {
+    status.innerHTML = "Connection error";
 };
 
-socket.onopen=function(){
-
-socket.send(JSON.stringify({
-authorize: token
-}));
-
+socket.onopen = function () {
+    socket.send(JSON.stringify({
+        authorize: token
+    }));
 };
 
+socket.onmessage = function (event) {
+    let data = JSON.parse(event.data);
 
-socket.onmessage=function(event){
+    if (data.error) {
+        status.innerHTML = data.error.message;
+        return;
+    }
 
-let data = JSON.parse(event.data);
-
-console.log(data);
-if(data.error){
-
-status.innerHTML=data.error.message;
-
-}else if(data.authorize){
-
-status.innerHTML="Connected successfully";
-
-localStorage.setItem(
-"deriv_account",
-JSON.stringify(data.authorize)
-);
-
-}
-
+    if (data.authorize) {
+        status.innerHTML = "Connected successfully!";
+    }
 };
-
-}
-
-</script>
-
-</body>
-</html>
