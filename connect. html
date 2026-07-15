@@ -1,1 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TraderHub</title>
 
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#111827;
+    color:white;
+    text-align:center;
+}
+
+header{
+    background:#ef4444;
+    padding:18px;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.container{
+    padding:30px 20px;
+}
+
+h2{
+    color:#22c55e;
+}
+
+p{
+    color:#d1d5db;
+    line-height:1.6;
+}
+
+.button{
+    display:block;
+    width:260px;
+    margin:20px auto;
+    padding:15px;
+    background:#22c55e;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.button:hover{
+    background:#16a34a;
+}
+
+.footer{
+    margin-top:40px;
+    color:#9ca3af;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+TraderHub
+</header>
+
+<div class="container">
+
+<h2>Advanced Deriv Trading Platform</h2>
+
+<p>
+Connect your Deriv account securely, analyze markets,
+trade synthetic indices, and manage your trading from one dashboard.
+</p>
+
+<a href="connect.html" class="button">
+Connect Deriv Account
+</a>
+
+<a href="trader.html" class="button">
+Open Trading Dashboard
+</a>
+
+</div>
+
+<div class="footer">
+© 2026 TraderHub
+</div>
+
+</body>
+</html>
