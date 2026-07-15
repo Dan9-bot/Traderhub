@@ -1,6 +1,18 @@
-let socket = new WebSocket(
-    "wss://ws.derivws.com/websockets/v3?app_id=33Pp6Q49Gvdxxyne3T2Ks"
-);
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connect Deriv</title>
+</head>
+<body>
+
+<h2 id="status">Connecting...</h2>
+
+<script>
+let token = "YOUR_DERIV_API_TOKEN";
+
+let status = document.getElementById("status");
+
+let socket = new WebSocket("wss://ws.derivws.com/websockets/v3?app_id=33Pp6Q49Gvdxxyne3T2Ks");
 
 socket.onerror = function () {
     status.innerHTML = "Connection error";
@@ -14,7 +26,7 @@ socket.onopen = function () {
 
 socket.onmessage = function (event) {
     let data = JSON.parse(event.data);
-console.log(data);
+
     if (data.error) {
         status.innerHTML = data.error.message;
         return;
@@ -24,3 +36,7 @@ console.log(data);
         status.innerHTML = "Connected successfully!";
     }
 };
+</script>
+
+</body>
+</html>
