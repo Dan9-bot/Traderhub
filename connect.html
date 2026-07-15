@@ -14,7 +14,7 @@ socket.onopen = function () {
 
 socket.onmessage = function (event) {
     let data = JSON.parse(event.data);
-
+console.log(data);
     if (data.error) {
         status.innerHTML = data.error.message;
         return;
