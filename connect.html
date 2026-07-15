@@ -1,68 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Traderhub - Connect</title>
-
-<style>
-body{
-    font-family:Arial,sans-serif;
-    background:#111827;
-    color:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    margin:0;
-}
-.box{
-    background:#1f2937;
-    padding:30px;
-    border-radius:12px;
-    text-align:center;
-    width:320px;
-}
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:8px;
-    background:#ff444f;
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-}
-button:hover{
-    background:#ff2c38;
-}
-</style>
-
+    <title>Connect to Deriv</title>
 </head>
 <body>
 
-<div class="box">
-<h2>Connect your Deriv Account</h2>
-
-<p id="status">Not Connected</p>
-
-<button onclick="connectDeriv()">
-Connect Account
-</button>
-
-</div>
+<h2>Connecting to Deriv...</h2>
 
 <script>
-
-const APP_ID = "33Pp6Q49Gvdxxyne3T2Ks";
-
-function connectDeriv(){
+const app_id = "33Pp6Q49Gvdxxyne3T2Ks";
+const redirect = "https://traderhub-xi.vercel.app/connect.html";
 
 window.location.href =
-`https://oauth.deriv.com/oauth2/authorize?app_id=${APP_ID}`;
-
-}
-
+`https://oauth.deriv.com/oauth2/authorize?app_id=${app_id}&l=EN&redirect_uri=${encodeURIComponent(redirect)}`;
 </script>
 
 </body>
