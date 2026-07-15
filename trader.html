@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TraderHub Dashboard</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#111827;
+    color:white;
+}
+
+header{
+    background:#ef4444;
+    padding:15px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.card{
+    background:#1f2937;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+}
+
+h2{
+    margin-top:0;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.buy{
+    background:#22c55e;
+    color:white;
+}
+
+.sell{
+    background:#ef4444;
+    color:white;
+}
+
+.info{
+    color:#d1d5db;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+TraderHub Dashboard
+</header>
+
+<div class="card">
+<h2>Account</h2>
+<p class="info">Status: Not Connected</p>
+<p class="info">Balance: --</p>
+</div>
+
+<div class="card">
+<h2>Market</h2>
+<p class="info">Symbol: Volatility 100 Index</p>
+<p class="info">Last Tick: --</p>
+</div>
+
+<div class="card">
+<h2>Trade</h2>
+
+<button class="buy">
+BUY
+</button>
+
+<button class="sell">
+SELL
+</button>
+
+</div>
+
+</body>
+</html>
