@@ -1,41 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Connect Deriv</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traderhub - Connect</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    background:#111827;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    margin:0;
+}
+.box{
+    background:#1f2937;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    width:320px;
+}
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:8px;
+    background:#ff444f;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+button:hover{
+    background:#ff2c38;
+}
+</style>
+
 </head>
 <body>
 
-<h2 id="status">Connecting...</h2>
+<div class="box">
+<h2>Connect your Deriv Account</h2>
+
+<p id="status">Not Connected</p>
+
+<button onclick="connectDeriv()">
+Connect Account
+</button>
+
+</div>
 
 <script>
-let token = "pat_b019c8efa4ffe196c70e5ba26f4ede23ad08ef4df5fbb95fc1fb07c9f74bf70c";
 
-let status = document.getElementById("status");
+const APP_ID = "33Pp6Q49Gvdxxyne3T2Ks";
 
-let socket = new WebSocket("wss://ws.derivws.com/websockets/v3?app_id=33Pp6Q49Gvdxxyne3T2Ks");
+function connectDeriv(){
 
-socket.onerror = function () {
-    status.innerHTML = "Connection error";
-};
+window.location.href =
+`https://oauth.deriv.com/oauth2/authorize?app_id=${APP_ID}`;
 
-socket.onopen = function () {
-    socket.send(JSON.stringify({
-        authorize: token
-    }));
-};
+}
 
-socket.onmessage = function (event) {
-    let data = JSON.parse(event.data);
-
-    if (data.error) {
-        status.innerHTML = data.error.message;
-        return;
-    }
-
-    if (data.authorize) {
-        status.innerHTML = "Connected successfully!";
-    }
-};
 </script>
 
 </body>
