@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +9,17 @@
 
 <script>
 const APP_ID = "33Pp6Q49Gvdxxyne3T2Ks";
+const REDIRECT_URI = "https://traderhub-xi.vercel.app/connect.html";
 
-const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get("token1");
+const params = new URLSearchParams(window.location.search);
+const token = params.get("token1");
 
 if (token) {
     localStorage.setItem("deriv_token", token);
     window.location.href = "trader.html";
 } else {
     window.location.href =
-        `https://oauth.deriv.com/oauth2/authorize?app_id=${APP_ID}`;
+        `https://oauth.deriv.com/oauth2/authorize?app_id=${APP_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`;
 }
 </script>
 
