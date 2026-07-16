@@ -1,20 +1,25 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Connect Deriv</title>
+    <title>Connect Deriv</title>
 </head>
 <body>
 
-<h2>Connect your Deriv Account</h2>
-
-<button onclick="login()">Login with Deriv</button>
+<h2>Connecting to Deriv...</h2>
 
 <script>
 const APP_ID = "33Pp6Q49Gvdxxyne3T2Ks";
 
-function login() {
+const urlParams = new URLSearchParams(window.location.search);
+const token = urlParams.get("token1");
+
+if (token) {
+    localStorage.setItem("deriv_token", token);
+    window.location.href = "trader.html";
+} else {
     window.location.href =
-    `https://oauth.deriv.com/oauth2/authorize?app_id=${APP_ID}`;
+        `https://oauth.deriv.com/oauth2/authorize?app_id=${APP_ID}`;
 }
 </script>
 
